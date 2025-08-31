@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Srujan Chinta | Data Scientist & ML Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: #cbd5e1;
+            overflow-x: hidden;
+        }
+        .background-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(29, 78, 216, 0.15) 0%, rgba(2, 6, 23, 0) 60%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Skills Network */
+        .skills-network-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #network-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .network-layer {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            z-index: 2;
+        }
+        .network-node {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 15px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: #1e293b;
+            color: #cbd5e1;
+            border: 1px solid #475569;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.125rem;
+        }
+        .network-node.output-node {
+            height: 70px;
+            font-size: 1rem;
+            padding: 5px 15px;
+            min-width: 120px;
+        }
+        .network-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--glow-color);
+            color: #fff;
+        }
+        .network-node.highlight {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--glow-color);
+            background-color: var(--bg-color);
+            color: #fff;
+            border-color: var(--glow-color);
+        }
+        .network-node.dimmed { opacity: 0.4; }
+
+        .network-tooltip {
+            position: absolute;
+            background-color: #0f172a;
+            color: #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 250px;
+            text-align: left;
+            z-index: 10;
+            pointer-events: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            animation: fadeInTooltip 0.2s ease-out forwards;
+        }
+
+        @keyframes fadeInTooltip {
+            from { opacity: 0; transform: translate(-50%, calc(-100% - 5px)); }
+            to { opacity: 1; transform: translate(-50%, calc(-100% - 12px)); }
+        }
+
+        .network-tooltip strong {
+            color: #e2e8f0;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* General Fade-in */
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+        
+        /* About Section Sequential Animation */
+        #about.is-visible .about-paragraph {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        #about .about-paragraph {
+            opacity: 0;
+        }
+        #about.is-visible .about-paragraph:nth-child(1) { animation-delay: 0.2s; }
+        #about.is-visible .about-paragraph:nth-child(2) { animation-delay: 0.4s; }
+        #about.is-visible .about-paragraph:nth-child(3) { animation-delay: 0.6s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Chatbot */
+        #chatbot-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
+        #chat-messages::-webkit-scrollbar { width: 4px; }
+        #chat-messages::-webkit-scrollbar-thumb { background: #475569; border-radius: 2px; }
+        .typing-cursor { display: inline-block; width: 2px; height: 1em; background-color: #38bdf8; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .typing-indicator span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #94a3b8; margin: 0 2px; animation: bounce 1.4s infinite ease-in-out both; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+
+        /* Project Grid */
+        .project-card.highlight {
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+            border-color: #38bdf8;
+            transform: translateY(-8px);
+        }
+
+        /* Project Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.16.0"
+  }
+}
+</script>
+</head>
+<body class="bg-slate-950 text-slate-300">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
