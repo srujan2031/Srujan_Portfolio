@@ -113,16 +113,7 @@ export const experienceData: Experience[] = [
         role: 'Data Analyst', 
         company: 'Bank of America', 
         date: 'Aug 2024 - Present', 
-        details: [
-            'Analyzed historical transaction and balance data using SQL to prepare structured datasets supporting accurate cash-flow forecasting and reliable treasury decision-making across corporate banking portfolios.',
-            'Built and maintained time-series forecasting datasets to project short- and mid-term cash positions across multiple accounts, currencies, and reporting periods for treasury planning teams.',
-            'Automated data ingestion and transformation workflows on AWS, reducing manual data preparation effort by 40% while ensuring timely availability of clean forecasting datasets.',
-            'Utilized Generative AI and AI-assisted analytics to automate insight generation, anomaly detection, and forecasting performance analysis across treasury datasets.',
-            'Designed Tableau dashboards to visualize projected versus actual cash positions, improving stakeholder review and decision turnaround time by 30%.',
-            'Collaborated with product managers and treasury stakeholders using Agile methodology to translate forecasting requirements into analytical deliverables aligned with business priorities and platform capabilities.',
-            'Performed continuous forecast performance monitoring to identify anomalies, data quality issues, and trend deviations, supporting stable forecasting cycles and dependable reporting outcomes.',
-            'Implemented LLM-based AI logic to assist in interpreting forecasting outputs and contextual insights, improving explainability of cash-flow projections and reducing reliance on manual analysis.'
-        ], 
+        details: [], 
         icon: 'bank-of-america',
         location: 'Texas, United States'
     },
@@ -131,15 +122,7 @@ export const experienceData: Experience[] = [
         role: 'Data Analyst', 
         company: 'HCLTech', 
         date: 'Aug 2021 - Mar 2023', 
-        details: [
-            'Consolidated fragmented retail, supply-chain, and merchandising datasets into a unified Azure analytics environment, enabling consistent enterprise-wide reporting and standardized KPI definitions across business teams.',
-            'Built and maintained Azure-based ETL pipelines to ingest transactional sales, inventory, and pricing data, reducing data refresh latency by 35% and improving analytics timeliness for planning teams.',
-            'Developed interactive Power BI dashboards for sales performance, inventory visibility, and regional demand analysis, accelerating decision-making cycles by 25% for merchandising and supply-chain stakeholders.',
-            'Implemented automated data validation and reconciliation logic in Azure to improve data accuracy and ensure consistency across SKU, store, and product hierarchies used in reporting.',
-            'Collaborated with finance, supply-chain, and retail planning teams to translate business requirements into scalable analytics solutions, supporting faster and more reliable planning and forecasting processes.',
-            'Optimized Power BI reports using efficient measures and data modeling techniques, reducing dashboard load times by 45% and increasing adoption among business users.',
-            'Standardized documentation and data definitions across the analytics layer, enabling enterprise analytics adoption across 5+ retail business functions and improving cross-team collaboration.'
-        ], 
+        details: [], 
         icon: 'hcltech',
         location: 'India'
     }
